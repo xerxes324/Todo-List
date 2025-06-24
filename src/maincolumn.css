@@ -1,0 +1,113 @@
+.tasksheading{
+
+    color: white;
+    font-size: 50px;
+}
+
+.newtaskbutton{
+    all:unset;
+    color: white;
+    font-size: 2.5rem;
+    margin-right: 1rem;
+}
+
+.taskcontainer-style{
+    background-color: rgb(198, 191, 191);
+    height:25rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 0.5rem;
+
+}
+
+.titlesection-style{
+    /* background-color: magenta; */
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+
+.titlesectionleft-style{
+    display: flex;
+    justify-content: left;
+    flex-grow: 1;
+    /* border: 5px solid blue; */
+    font-size: 35px;
+    gap: 2rem;
+    margin-left: 20px;
+}
+
+.titlesectionright-style{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    /* border: 5px solid black; */
+    flex-grow: 1;
+}
+
+.titlefield-style{
+    width: 80%;
+    height:3rem;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+.datefield{
+    width: 30%;
+    font-size: 80%;
+}
+
+
+.descriptionsection-style{
+    /* background-color: brown; */
+}
+
+.descriptionbox-style{
+    height: 10rem;
+    font-size: 30px;
+    border-radius: 10px;
+    width: 50%;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+
+.prioritysection-style{
+    /* background-color: yellow; */
+    height: 5rem;
+    font-size: 30px;
+}
+
+.prioritydropdown-style{
+    font-size: 30px;
+    width: 20%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+#prioritylabel{
+    display: block;
+    margin-left: 20px;
+}
+
+.controlsection-style{
+    /* background-color: orange; */
+    height : 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+
+}
+
+.savebutton-style{
+    font-size: 25px;
+    background-color: green;
+}
+
+
+.deletebutton-style{
+    font-size: 25px;
+    background-color: red;
+}

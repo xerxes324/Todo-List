@@ -1,0 +1,17 @@
+.mylistsheader-style{
+    font-size: 2rem;
+}
+
+.homebutton, .todaybutton,.thisweekbutton, .newlistbutton{
+    all:unset;
+    background-color: wheat;
+    font-size: 3rem;
+    margin: 0.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.newlistbutton{
+    height: 60%;
+    min-width: 100%;
+}

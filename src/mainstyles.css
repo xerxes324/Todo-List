@@ -1,0 +1,84 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+#container{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+#sidebar{
+    flex-grow: 0.25;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    border-right: 0.5rem solid black;
+}
+
+#sidebar-headers{
+    background-color: blue;
+    flex-grow: 0.05;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#mylist-heading{
+    background-color: brown;
+    flex-grow: 0.05;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lists{
+    display: flex;
+    background-color: pink;
+    flex-grow: 0.87;
+}
+
+#newlist{
+    background-color: blueviolet;
+    flex-grow: 0.03;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* overflow:hidden; */
+}
+
+
+#maincontent{
+    flex-grow: 0.8;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+}
+
+#tasksheading{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    border-bottom: 1px solid white;
+}
+
+#tasks{
+    flex-grow: 1;
+    background-color: rgb(2, 2, 2);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#newtask{
+    /* background-color: orange; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 80px;
+    background-color: black;
+}
