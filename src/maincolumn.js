@@ -79,6 +79,7 @@ export const savebuttonlistener = (task)=>{
         editbutton.textContent = "Edit";
         editbutton.classList.add("editbutton-style");
         task.taskcontainer.append(editbutton);
+        editbuttonlistener(editbutton,task);
     })
 }
 
@@ -89,6 +90,20 @@ export const deletebuttonlistener = (task)=>{
     })
 }
 
-export const editbuttonlistener = (task)=>{
-    
+export const editbuttonlistener = (editbutton,task)=>{
+    editbutton.addEventListener("click",()=>{
+        edittask(task);
+    })
+}
+
+const edittask = (task)=>{
+    const maindiv = document.getElementById("tasks");
+    const oldtask  = task.taskcontainer; 
+    const newtask = task.createform(task.titlefield.value,task.datefield.value,task.descriptionbox.value);
+
+    tasklisteners(task);
+    savebuttonlistener(task);
+    deletebuttonlistener(task);
+    maindiv.insertBefore(newtask, oldtask);
+    oldtask.remove();
 }
