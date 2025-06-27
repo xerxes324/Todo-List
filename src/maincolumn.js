@@ -1,4 +1,5 @@
 import {todo} from "./createtodo.js"
+import { active, listtaskmap } from "./index.js";
 export const tasksheading = ()=>{
     const taskshead = document.getElementById("tasksheading");
     const tasksheadh2 = document.createElement("h2");
@@ -20,10 +21,19 @@ export const createnewtaskbutton = ()=>{
 
 export const newtaskbuttonEL = (newtaskbutton)=>{
     newtaskbutton.addEventListener("click",()=>{
-        const task = new todo();
-        tasklisteners(task);
-        savebuttonlistener(task);
-        deletebuttonlistener(task);
+
+        if ( active.length === 1){
+            const task = new todo();
+            tasklisteners(task);
+            savebuttonlistener(task);
+            deletebuttonlistener(task);
+
+            listtaskmap.forEach((value,key) => {
+                if ( active[0] === key){
+                    listtaskmap.get(key).push(task);
+                }
+            });
+        }
     })
 }
 
@@ -80,6 +90,17 @@ export const savebuttonlistener = (task)=>{
         editbutton.classList.add("editbutton-style");
         task.taskcontainer.append(editbutton);
         editbuttonlistener(editbutton,task);
+
+        const importance = task.prioritydropdown.value;
+        if ( importance === "Medium"){
+            task.taskcontainer.classList.add("medprior");
+        }
+        else if ( importance === "Low"){
+            task.taskcontainer.classList.add("lowprior");
+        }
+        else{
+            task.taskcontainer.classList.add("highprior");
+        }
     })
 }
 
