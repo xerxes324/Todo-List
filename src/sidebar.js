@@ -1,3 +1,5 @@
+import { active, listtaskmap } from ".";
+import { initializelist } from "./lists";
 const getSidebarHeader = () => document.getElementById("sidebar-headers");
 
 export const mylistheading = ()=>{
@@ -51,25 +53,103 @@ export const createlistbutton= ()=>{
 
 export const homebuttonEL = (homebtn)=>{
     homebtn.addEventListener("click",()=>{
-        console.log("Hi")
+
     })
 }
 
 export const todaybuttonEL = (todaybtn) => {
     todaybtn.addEventListener("click",()=>{
-        console.log("Hello")
+
     })
 }
 
 export const weekbuttonEL = (weekbtn)=>{
     weekbtn.addEventListener("click",()=>{
-        console.log("CHicken")
+
     })
 }
 
 export const newlistbuttonEL = (newlistbutton) =>{
     newlistbutton.addEventListener("click",()=>{
-        console.log("heaven");
-        
+        const sidebarlist = new initializelist();
+        setuplisthandler(sidebarlist);
+        deletelistbuttonlistener(sidebarlist);
+        savelistbuttonlistener(sidebarlist);
     })
+}
+
+
+const deletelistbuttonlistener = (sidebarlist) =>{
+    sidebarlist.deletelistbtn.addEventListener("click",()=>{
+        
+        sidebarlist.listbox.remove();
+        listtaskmap.forEach((value,key) => {
+            if ( key === sidebarlist.id){
+                if ( active[0] === key){
+                    const tasksdiv = document.getElementById("tasks");
+                    tasksdiv.textContent = "";
+                }
+                listtaskmap.delete(key);
+            }
+        });
+    })
+}
+
+const savelistbuttonlistener = (sidebarlist) =>{
+    sidebarlist.savelistbtn.addEventListener("click",()=>{
+
+        const savedlistbox = sidebarlist.listbox;
+        savedlistbox.classList.remove("newlist-style");
+        savedlistbox.classList.add("savedlistbox-style");
+        savedlistbox.textContent = "";
+
+        const listnameh1 = document.createElement("h1");
+        listnameh1.textContent = sidebarlist.listinput.value;
+        const listeditbtn = document.createElement("button");
+        listeditbtn.textContent = "Edit";
+        listeditbtn.classList.add("listeditbutton-style")
+        savedlistbox.append(listnameh1,listeditbtn);
+
+        editlist(sidebarlist,listeditbtn);
+    })
+}
+
+
+const editlist = (sidebarlist,listeditbtn) =>{
+    
+    listeditbtn.addEventListener("click",()=>{
+        const listswrapper = document.getElementById("lists");
+        const oldlist = sidebarlist.listbox;
+        const newlist = sidebarlist.createlist(sidebarlist.listinput.value);
+        listswrapper.insertBefore(newlist,oldlist);
+        savelistbuttonlistener(sidebarlist);
+        deletelistbuttonlistener(sidebarlist);
+        oldlist.remove();
+    })
+
+}
+
+
+const setuplisthandler = (sidebarlist) =>{
+    const listbox = sidebarlist.listbox;
+    listbox.addEventListener("click",()=>{
+        // console.log("hello");
+        active[0] = sidebarlist.id;
+        displaytasks(sidebarlist);
+    })
+}
+
+const displaytasks = (sidebarlist) => {
+
+    const tasksdiv = document.getElementById("tasks");
+    tasksdiv.textContent = "";
+    listtaskmap.forEach((value,key) => {
+        if ( key === sidebarlist.id ){
+            for ( let i = 0 ; i < value.length ; i++ ) {
+                console.log("yesboss");
+                tasksdiv.append(value[i].taskcontainer);
+            }
+        }
+    });
+
 }
