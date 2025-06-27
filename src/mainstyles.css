@@ -3,6 +3,14 @@
     padding:0;
 }
 
+@font-face {
+    font-family: "myfont";
+    src: url("../customfont.otf");
+}
+body{
+ font-family: "myfont";
+}
+
 #container{
     display: flex;
     width: 100%;
@@ -10,38 +18,41 @@
 }
 
 #sidebar{
-    flex-grow: 0.25;
-    background-color: red;
+    width: 20%;
+    /* background-color: red; */
     display: flex;
     flex-direction: column;
-    border-right: 0.5rem solid black;
+    /* border-right: 0.5rem solid black; */
 }
 
 #sidebar-headers{
-    background-color: blue;
-    flex-grow: 0.05;
+    /* background-color: blue; */
+    height: 15rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom: 3px solid black;
 }
 
 #mylist-heading{
-    background-color: brown;
-    flex-grow: 0.05;
+    /* background-color: brown; */
+    height:60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 3px solid black;
 }
 
 #lists{
     display: flex;
-    background-color: pink;
-    flex-grow: 0.87;
+    /* background-color: pink; */
+    flex-grow: 1;
 }
 
 #newlist{
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
+    border-top: 3px solid black;
     flex-grow: 0.03;
     display: flex;
     justify-content: center;
@@ -51,8 +62,7 @@
 
 
 #maincontent{
-    flex-grow: 0.8;
-    /* background-color: green; */
+    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -62,7 +72,6 @@
     display: flex;
     justify-content: center;
     height: 60px;
-    border-bottom: 1px solid white;
 }
 
 #tasks{
@@ -75,7 +84,6 @@
 }
 
 #newtask{
-    /* background-color: orange; */
     display: flex;
     justify-content: flex-end;
     align-items: center;
