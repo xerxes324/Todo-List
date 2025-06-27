@@ -1,5 +1,7 @@
 import { active, listtaskmap } from ".";
 import { initializelist } from "./lists";
+import { addDays, format } from "date-fns";
+
 const getSidebarHeader = () => document.getElementById("sidebar-headers");
 
 export const mylistheading = ()=>{
@@ -53,19 +55,51 @@ export const createlistbutton= ()=>{
 
 export const homebuttonEL = (homebtn)=>{
     homebtn.addEventListener("click",()=>{
-
+        const tasksdiv = document.getElementById("tasks");
+        tasksdiv.textContent = "";
+        listtaskmap.forEach((value,key) => {
+            for ( let i = 0 ; i < value.length ; i++){
+                tasksdiv.append(value[i].taskcontainer);
+            }
+        });
     })
 }
 
 export const todaybuttonEL = (todaybtn) => {
     todaybtn.addEventListener("click",()=>{
-
+        const today = new Date();
+        const taskdiv = document.getElementById("tasks");
+        taskdiv.textContent = "";
+        listtaskmap.forEach((value,key)=> {
+            for ( let i = 0 ; i < value.length ; i++){
+                if(value[i].datefield.value === format(today,'yyyy-MM-dd')){
+                    taskdiv.append(value[i].taskcontainer);
+                }
+            }
+        });
     })
 }
 
 export const weekbuttonEL = (weekbtn)=>{
     weekbtn.addEventListener("click",()=>{
+        const today = new Date();
+        const datearray = [];
 
+        for ( let i = 0; i < 7 ; i ++){
+            const day = addDays(today,i);
+            const formatteddate = format(day, 'yyyy-MM-dd');
+            datearray.push(formatteddate);
+        }
+
+        const taskdiv = document.getElementById("tasks");
+        taskdiv.textContent = "";
+        listtaskmap.forEach((value,key)=> {
+            for ( let i = 0 ; i < value.length; i ++){
+                if ( datearray.includes(value[i].datefield.value)){
+                    taskdiv.append(value[i].taskcontainer);
+                }
+            }
+        });
     })
 }
 
