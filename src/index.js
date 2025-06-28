@@ -5,7 +5,21 @@ import {mylistheading,createhomebutton,createtodaybutton,createweekbutton,homebu
 import { tasksheading,createnewtaskbutton,newtaskbuttonEL} from "./maincolumn.js";
 export const active = [];
 export const listtaskmap = new Map();
-import {format} from date-fns;
+import { getfromlocalstorage } from "./storage.js";
+
+window.addEventListener("DOMContentLoaded",()=>{
+    getfromlocalstorage();
+
+    listtaskmap.forEach((value,key) => {
+        const taskdiv = document.getElementById("tasks");
+        const listdiv = document.getElementById("lists");
+        
+        for ( let i = 0 ; i < value.length ; i++){
+            taskdiv.append(value[i].taskcontainer);
+        }
+    });
+
+})
 
 mylistheading();
 const {homebutton} = createhomebutton();
@@ -21,3 +35,4 @@ weekbuttonEL(thisweekbutton);
 newlistbuttonEL(newlistbutton);
 newtaskbuttonEL(newtaskbutton);
 tasksheading();
+
