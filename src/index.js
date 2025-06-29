@@ -8,16 +8,16 @@ export const listtaskmap = new Map();
 import { getfromlocalstorage } from "./storage.js";
 
 window.addEventListener("DOMContentLoaded",()=>{
-    getfromlocalstorage();
-
-    listtaskmap.forEach((value,key) => {
-        const taskdiv = document.getElementById("tasks");
-        const listdiv = document.getElementById("lists");
-        
-        for ( let i = 0 ; i < value.length ; i++){
-            taskdiv.append(value[i].taskcontainer);
-        }
-    });
+    const temp = getfromlocalstorage();
+    console.log(temp); // works , returns Array(3) when 3 newtasks
+    // const mapsize = temp.size();
+    console.log("heythere")
+    console.log(typeof temp, "is temp")
+    if (temp){
+        temp.forEach((value,key) => {
+            console.log(value);
+        });
+    }
 
 })
 
