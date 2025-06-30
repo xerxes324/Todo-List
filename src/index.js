@@ -10,8 +10,9 @@ import {renderDOM, getfromlocalstorage } from "./storage.js";
 
 
 window.addEventListener("DOMContentLoaded",()=>{
-
+    // localStorage.clear();
     const refresheddata = getfromlocalstorage();
+    console.log("TYPE OF:",typeof refresheddata);
     renderDOM(refresheddata);
 })
 

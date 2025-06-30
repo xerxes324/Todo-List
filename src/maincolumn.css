@@ -13,12 +13,11 @@
 
 .taskcontainer-style{
     background-color: rgb(198, 191, 191);
-    height:25rem;
+    height:fit-content;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
     padding: 0.5rem;
-
 }
 
 .titlesection-style{
@@ -110,4 +109,56 @@
 .deletebutton-style{
     font-size: 25px;
     background-color: red;
+}
+
+
+/* save button css */
+
+.savedtask{
+    border-radius: 10px;
+    height:fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    overflow-wrap: break-word;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+
+.highprior{
+
+    background-color: red;
+}
+
+.medprior{
+    background-color: rgb(252, 252, 54);
+}
+
+.lowprior{
+    background-color: greenyellow;
+}
+
+.savedtitle-style{
+    font-size: 35px;
+}
+.saveddesc-style{
+    font-size: 25px;
+}
+
+.saveddate-style{
+    font-size: 25px;
+}
+
+.editbutton-style{
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    width: 3%;
+    align-self: left;
+    margin-left:2px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }

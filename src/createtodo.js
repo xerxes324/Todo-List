@@ -3,8 +3,9 @@ export class todo {
         this.createform();
     }
 
-    createform(title,date ,desc){
+    createform(title,date,desc,priorityvalue){
 
+        console.log("renderedd!")
         this.maindiv = document.getElementById("tasks");
         this.taskcontainer = document.createElement("div");
         this.taskcontainer.classList.add("taskcontainer-style");
@@ -66,7 +67,7 @@ export class todo {
         else{
             this.descriptionbox.value = desc;
         }
-    
+        
         this.descriptionsection.append(this.descriptionbox);
         this.taskcontainer.append(this.descriptionsection);
 
@@ -79,6 +80,7 @@ export class todo {
         this.prioritydropdown = document.createElement("select");
         this.prioritydropdown.id = "dropdown";
         this.prioritydropdown.classList.add("prioritydropdown-style");
+        
         ["High","Medium","Low"].forEach(e => {
             const prioritylevel = document.createElement("option");
             prioritylevel.textContent = e;
