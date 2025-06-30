@@ -5,20 +5,14 @@ import {mylistheading,createhomebutton,createtodaybutton,createweekbutton,homebu
 import { tasksheading,createnewtaskbutton,newtaskbuttonEL} from "./maincolumn.js";
 export const active = [];
 export const listtaskmap = new Map();
-import { getfromlocalstorage } from "./storage.js";
+export const storagearray = [];
+import {renderDOM, getfromlocalstorage } from "./storage.js";
+
 
 window.addEventListener("DOMContentLoaded",()=>{
-    const temp = getfromlocalstorage();
-    console.log(temp); // works , returns Array(3) when 3 newtasks
-    // const mapsize = temp.size();
-    console.log("heythere")
-    console.log(typeof temp, "is temp")
-    if (temp){
-        temp.forEach((value,key) => {
-            console.log(value);
-        });
-    }
 
+    const refresheddata = getfromlocalstorage();
+    renderDOM(refresheddata);
 })
 
 mylistheading();

@@ -1,5 +1,6 @@
 import {todo} from "./createtodo.js"
 import { active, listtaskmap } from "./index.js";
+import { addtolocalstorage, getfromlocalstorage } from "./storage.js";
 export const tasksheading = ()=>{
     const taskshead = document.getElementById("tasksheading");
     const tasksheadh2 = document.createElement("h2");
@@ -8,6 +9,7 @@ export const tasksheading = ()=>{
     taskshead.appendChild(tasksheadh2);
 }
 
+// localStorage.clear();
 export const createnewtaskbutton = ()=>{
     const newtaskdiv = document.getElementById("newtask");
     const newtaskbutton = document.createElement("button");
@@ -101,13 +103,20 @@ export const savebuttonlistener = (task)=>{
         else{
             task.taskcontainer.classList.add("highprior");
         }
+
+        const olddata = getfromlocalstorage();
+        addtolocalstorage(olddata);
     })
+
 }
 
 export const deletebuttonlistener = (task)=>{
     task.deletebutton.addEventListener("click",()=>{
         console.log('helo')
         task.taskcontainer.remove();
+        listtaskmap.forEach((value,key) => {
+            
+        });
     })
 }
 
