@@ -1,21 +1,28 @@
-import { listtaskmap } from ".";
+import { listtaskmap,storagearray } from ".";
 
-export const addtolocalstorage =  (listtaskmap)=>{
-    localStorage.setItem("mylocalstore", JSON.stringify(Object.fromEntries(listtaskmap)));
-}
-// object.fromentries needed because Stringify() doesnt know to serialize a map. This converts it to an object.
-export const getfromlocalstorage = ()=>{
-    const mapobj = JSON.parse(localStorage.getItem("mylocalstore"));
-    console.log("mapobj is: ", mapobj);
+export const addtolocalstorage = (olddata)=>{
 
-    if (!mapobj){return null};
+    const arrtemp = [];
+    if ( olddata ){
+        arrtemp.push(...olddata);
+    }
 
-    const loadedmap = new Map(Object.entries(mapobj));
-    listtaskmap.clear(); 
-    loadedmap.forEach((value,key) => {
-        listtaskmap.set(key, value);
+    listtaskmap.forEach((mapvalue,key) => {
+        for (let i = 0; i < mapvalue.length ; i++){
+            arrtemp.push([key,mapvalue[i].title,mapvalue[i].desc,mapvalue[i].date])       
+        }
     });
+    localStorage.setItem("localstore",JSON.stringify(arrtemp));
+
 }
 
 
+export const getfromlocalstorage = ()=>{
+    const getdata = JSON.parse(localStorage.getItem("localstore"));
+    return getdata;
+}
 
+export const renderDOM = (data)=>{
+    // console.log(data);
+
+}   
