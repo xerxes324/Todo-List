@@ -1,36 +1,69 @@
-import { listtaskmap,storagearray } from ".";
+import { listarray, listobj, listtaskmap,storagearray } from ".";
 import { initializelist } from "./lists";
 import {todo} from "./createtodo";
-export const addtolocalstorage = (olddata)=>{
-
-    const arrtemp = [];
+import { savebuttonlistener } from "./maincolumn";
+import {savelistbuttonlistener} from "./sidebar"
+export const restoreObject = (olddata)=>{
+    
     if ( olddata ){
-        arrtemp.push(...olddata);
+        console.log(olddata);
+
+        Object.entries(olddata).forEach(([key,value])=>{
+            listobj[key] = value;
+        })
+        console.log("the list object is:", listobj);
     }
-
-    listtaskmap.forEach((mapvalue,key) => {
-        for (let i = 0; i < mapvalue.length ; i++){
-            arrtemp.push([key,mapvalue[i].prioritydropdown.value,mapvalue[i].title,mapvalue[i].desc,mapvalue[i].date])       
-        }
-    });
-    localStorage.setItem("localstore",JSON.stringify(arrtemp));
-
 }
 
+export const addListToStorage = (list)=>{
+    if ( !listobj[list.id]){
+        listobj[list.id] = [list.listinput.value];
+    }
+    localStorage.setItem("localstore",JSON.stringify(listobj));
+}
 
-export const getfromlocalstorage = ()=>{
+export const addTaskToStorage = (task)=>{
+    listtaskmap.forEach((values,key) => {
+        for ( let i = 0 ; i < values.length ;i++){
+            if ( task.id  === values[i].id){
+                if ( !listobj[key]){
+                    listobj[key] = [];
+                }
+
+                listobj[key].push([
+                    task.id,
+                    task.titlefield.value,
+                    task.datefield.value,
+                    task.descriptionbox.value, 
+                    task.prioritydropdown.value]);
+            }
+        }
+    });
+    localStorage.setItem("localstore",JSON.stringify(listobj));
+}
+
+export const getDataFromLocalStorage = ()=>{
     const getdata = JSON.parse(localStorage.getItem("localstore"));
     return getdata;
 }
 
 
-export const renderDOM = (data)=>{
 
-    if ( data ){
-        data.forEach(e => {
-            const renderlists = new initializelist(e[0]);
-            const rendertasks = new todo(e[2],e[3],e[4]); 
-        });
-    }
+export const renderDOM = ()=>{
+    console.log("rendering in 5,4,..0");
 
-}   
+    Object.entries(listobj).forEach(([key,values])=>{
+
+        const renderList = new initializelist(values[0]);
+        savelistbuttonlistener(renderList);
+        renderList.savelistbtn.click();
+        
+        for ( let i = 1 ; i < values.length ; i++){
+
+            console.log(values);
+            const renderTask = new todo(values[i][1],values[i][2],values[i][3]);
+            savebuttonlistener(renderTask,values[i][4]);
+            renderTask.savebutton.click();
+        }
+    })
+}
