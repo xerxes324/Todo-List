@@ -1,6 +1,7 @@
-import { active, listtaskmap } from ".";
+import { active, listobj, listtaskmap } from ".";
 import { initializelist } from "./lists";
 import { addDays, format } from "date-fns";
+import { addListToStorage } from "./storage";
 
 const getSidebarHeader = () => document.getElementById("sidebar-headers");
 
@@ -126,10 +127,12 @@ const deletelistbuttonlistener = (sidebarlist) =>{
                 listtaskmap.delete(key);
             }
         });
+
+        delete listobj[sidebarlist.id];
     })
 }
 
-const savelistbuttonlistener = (sidebarlist) =>{
+export const savelistbuttonlistener = (sidebarlist) =>{
     sidebarlist.savelistbtn.addEventListener("click",()=>{
 
         const savedlistbox = sidebarlist.listbox;
@@ -143,8 +146,8 @@ const savelistbuttonlistener = (sidebarlist) =>{
         listeditbtn.textContent = "Edit";
         listeditbtn.classList.add("listeditbutton-style")
         savedlistbox.append(listnameh1,listeditbtn);
-
         editlist(sidebarlist,listeditbtn);
+        addListToStorage(sidebarlist);
     })
 }
 
@@ -180,7 +183,6 @@ const displaytasks = (sidebarlist) => {
     listtaskmap.forEach((value,key) => {
         if ( key === sidebarlist.id ){
             for ( let i = 0 ; i < value.length ; i++ ) {
-                console.log("yesboss");
                 tasksdiv.append(value[i].taskcontainer);
             }
         }

@@ -1,6 +1,6 @@
 import {todo} from "./createtodo.js"
 import { active, listtaskmap } from "./index.js";
-import { addtolocalstorage, getfromlocalstorage } from "./storage.js";
+import { addTaskToStorage, addtolocalstorage, gettaskfromlocalstorage } from "./storage.js";
 export const tasksheading = ()=>{
     const taskshead = document.getElementById("tasksheading");
     const tasksheadh2 = document.createElement("h2");
@@ -33,6 +33,7 @@ export const newtaskbuttonEL = (newtaskbutton)=>{
             listtaskmap.forEach((value,key) => {
                 if ( active[0] === key){
                     listtaskmap.get(key).push(task);
+                    console.log(listtaskmap.size);
                 }
             });
         }
@@ -57,7 +58,7 @@ export const tasklisteners = (task)=>{
 }
 
 
-export const savebuttonlistener = (task)=>{
+export const savebuttonlistener = (task,priorityvalue)=>{
 
     // console.log(task.savebutton);
     task.savebutton.addEventListener("click",()=>{
@@ -93,19 +94,33 @@ export const savebuttonlistener = (task)=>{
         task.taskcontainer.append(editbutton);
         editbuttonlistener(editbutton,task);
 
-        const importance = task.prioritydropdown.value;
-        if ( importance === "Medium"){
-            task.taskcontainer.classList.add("medprior");
+        if(priorityvalue){
+            if ( priorityvalue === "Medium"){
+                task.taskcontainer.classList.add("medprior");
+            }
+            else if ( priorityvalue === "Low"){
+                task.taskcontainer.classList.add("lowprior");
+            }
+            else{
+                task.taskcontainer.classList.add("highprior");
+            }   
         }
-        else if ( importance === "Low"){
-            task.taskcontainer.classList.add("lowprior");
-        }
+        
         else{
-            task.taskcontainer.classList.add("highprior");
+            const importance = task.prioritydropdown.value;
+            if ( importance === "Medium"){
+                task.taskcontainer.classList.add("medprior");
+            }
+            else if ( importance === "Low"){
+                task.taskcontainer.classList.add("lowprior");
+            }
+            else{
+                task.taskcontainer.classList.add("highprior");
+            }   
         }
 
-        const olddata = getfromlocalstorage();
-        addtolocalstorage(olddata);
+
+        addTaskToStorage(task);
     })
 
 }
@@ -114,8 +129,13 @@ export const deletebuttonlistener = (task)=>{
     task.deletebutton.addEventListener("click",()=>{
         console.log('helo')
         task.taskcontainer.remove();
-        listtaskmap.forEach((value,key) => {
-            
+        listtaskmap.forEach((values,key) => {
+            for ( let i = 0 ; i < values.length ; i++){
+                if ( values[i].id === task.id){
+                    values.splice(i,1);
+                    break;
+                }
+            }
         });
     })
 }

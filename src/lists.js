@@ -1,14 +1,10 @@
 import { listtaskmap, active } from ".";
 export class initializelist {
 
-    constructor(id){
-        this.createlist();
-        if ( id ){
-            this.id = id;
-        }
-        else{
-            this.id = crypto.randomUUID();
-        }
+    constructor(listname){
+        this.createlist(listname);
+        this.id = crypto.randomUUID();
+        
         listtaskmap.set(this.id,[]);
     }
 
@@ -26,7 +22,6 @@ export class initializelist {
             this.listinput.value = listinputvalue;
         }
         this.listinput.classList.add("liststyle");
-
         this.savelistbtn = document.createElement("button");
         this.savelistbtn.textContent = "Save";
         this.savelistbtn.classList.add("listbutton-style");

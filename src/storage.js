@@ -3,13 +3,19 @@ import { initializelist } from "./lists";
 import {todo} from "./createtodo";
 import { savebuttonlistener } from "./maincolumn";
 import {savelistbuttonlistener} from "./sidebar"
+
+
 export const restoreObject = (olddata)=>{
-    
+
     if ( olddata ){
-        console.log(olddata);
+        console.log(olddata, "is the old data");
+        console.log(Object.keys(olddata).length, "is olddata length");
 
         Object.entries(olddata).forEach(([key,value])=>{
-            listobj[key] = value;
+            console.log(Object.keys(listobj).length,"is listobj length");
+            if ( !(key in listobj)){
+                listobj[key] = value;   
+            }
         })
         console.log("the list object is:", listobj);
     }
@@ -44,6 +50,7 @@ export const addTaskToStorage = (task)=>{
 
 export const getDataFromLocalStorage = ()=>{
     const getdata = JSON.parse(localStorage.getItem("localstore"));
+    console.log("get data is : ",getdata);
     return getdata;
 }
 
@@ -62,8 +69,11 @@ export const renderDOM = ()=>{
 
             console.log(values);
             const renderTask = new todo(values[i][1],values[i][2],values[i][3]);
+            console.log(listtaskmap);
             savebuttonlistener(renderTask,values[i][4]);
             renderTask.savebutton.click();
         }
     })
+
+
 }

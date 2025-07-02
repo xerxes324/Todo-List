@@ -1,15 +1,16 @@
 export class todo {
-    constructor(){
-        this.createform();
+    constructor(title,date,desc,priorityvalue){
+        this.createform(title,date,desc,priorityvalue   );
+        this.id = crypto.randomUUID();
     }
 
     createform(title,date,desc,priorityvalue){
 
-        console.log("renderedd!")
         this.maindiv = document.getElementById("tasks");
         this.taskcontainer = document.createElement("div");
         this.taskcontainer.classList.add("taskcontainer-style");
         this.maindiv.appendChild(this.taskcontainer);
+        this.taskcontainer.id = this.id;
 
         this.titlesection = document.createElement("div");
         this.descriptionsection = document.createElement("div");
@@ -80,15 +81,20 @@ export class todo {
         this.prioritydropdown = document.createElement("select");
         this.prioritydropdown.id = "dropdown";
         this.prioritydropdown.classList.add("prioritydropdown-style");
-        
-        ["High","Medium","Low"].forEach(e => {
-            const prioritylevel = document.createElement("option");
-            prioritylevel.textContent = e;
-            this.prioritydropdown.append(prioritylevel);
-        });
+        if ( priorityvalue){
+            this.prioritydropdown.value = priorityvalue;
+        }
+        else{
 
-        this.prioritysection.append(this.prioritylabel,this.prioritydropdown);
-        this.taskcontainer.append(this.prioritysection);
+            ["High","Medium","Low"].forEach(e => {
+                const prioritylevel = document.createElement("option");
+                prioritylevel.textContent = e;
+                this.prioritydropdown.append(prioritylevel);
+            });
+    
+            this.prioritysection.append(this.prioritylabel,this.prioritydropdown);
+            this.taskcontainer.append(this.prioritysection);
+        }
 
 
         //control section:

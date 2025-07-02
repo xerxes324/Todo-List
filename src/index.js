@@ -3,17 +3,19 @@ import "./sidebar.css";
 import "./maincolumn.css"
 import {mylistheading,createhomebutton,createtodaybutton,createweekbutton,homebuttonEL,weekbuttonEL,todaybuttonEL,createlistbutton, newlistbuttonEL} from "./sidebar.js";
 import { tasksheading,createnewtaskbutton,newtaskbuttonEL} from "./maincolumn.js";
+import { getDataFromLocalStorage, addOldDataToObject, restoreObject, renderDOM } from "./storage.js";
 export const active = [];
 export const listtaskmap = new Map();
-export const storagearray = [];
-import {renderDOM, getfromlocalstorage } from "./storage.js";
+export const listobj = {};
 
 
 window.addEventListener("DOMContentLoaded",()=>{
+
     // localStorage.clear();
-    const refresheddata = getfromlocalstorage();
-    console.log("TYPE OF:",typeof refresheddata);
-    renderDOM(refresheddata);
+    const olddata = getDataFromLocalStorage();
+    restoreObject(olddata);
+    renderDOM();
+    // localStorage.clear();
 })
 
 mylistheading();
