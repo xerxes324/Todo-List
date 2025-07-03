@@ -114,7 +114,7 @@ export const newlistbuttonEL = (newlistbutton) =>{
 }
 
 
-const deletelistbuttonlistener = (sidebarlist) =>{
+export const deletelistbuttonlistener = (sidebarlist) =>{
     sidebarlist.deletelistbtn.addEventListener("click",()=>{
         
         sidebarlist.listbox.remove();
@@ -129,27 +129,35 @@ const deletelistbuttonlistener = (sidebarlist) =>{
         });
 
         delete listobj[sidebarlist.id];
+        localStorage.setItem("localstore",JSON.stringify(listobj));
     })
 }
-
 export const savelistbuttonlistener = (sidebarlist) =>{
     sidebarlist.savelistbtn.addEventListener("click",()=>{
-
-        const savedlistbox = sidebarlist.listbox;
-        savedlistbox.classList.remove("newlist-style");
-        savedlistbox.classList.add("savedlistbox-style");
-        savedlistbox.textContent = "";
-
-        const listnameh1 = document.createElement("h1");
-        listnameh1.textContent = sidebarlist.listinput.value;
-        const listeditbtn = document.createElement("button");
-        listeditbtn.textContent = "Edit";
-        listeditbtn.classList.add("listeditbutton-style")
-        savedlistbox.append(listnameh1,listeditbtn);
-        editlist(sidebarlist,listeditbtn);
-        addListToStorage(sidebarlist);
+        finalizeListSave(sidebarlist);
     })
 }
+
+export const finalizeListSave = (sidebarlist,temp)=>{
+
+    const savedlistbox = sidebarlist.listbox;
+    savedlistbox.classList.remove("newlist-style");
+    savedlistbox.classList.add("savedlistbox-style");
+    savedlistbox.textContent = "";
+
+    const listnameh1 = document.createElement("h1");
+    listnameh1.textContent = sidebarlist.listinput.value;
+    const listeditbtn = document.createElement("button");
+    listeditbtn.textContent = "Edit";
+    listeditbtn.classList.add("listeditbutton-style")
+    savedlistbox.append(listnameh1,listeditbtn);
+    editlist(sidebarlist,listeditbtn);
+    if ( !temp ){
+        addListToStorage(sidebarlist);
+    }
+}
+
+
 
 
 const editlist = (sidebarlist,listeditbtn) =>{
@@ -167,12 +175,13 @@ const editlist = (sidebarlist,listeditbtn) =>{
 }
 
 
-const setuplisthandler = (sidebarlist) =>{
+export const setuplisthandler = (sidebarlist) =>{
     const listbox = sidebarlist.listbox;
     listbox.addEventListener("click",()=>{
         // console.log("hello");
         active[0] = sidebarlist.id;
         displaytasks(sidebarlist);
+        console.log(active, "is active rn.")
     })
 }
 
