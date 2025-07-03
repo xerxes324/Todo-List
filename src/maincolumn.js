@@ -1,5 +1,5 @@
 import {todo} from "./createtodo.js"
-import { active, listtaskmap } from "./index.js";
+import { active, listobj, listtaskmap } from "./index.js";
 import { addTaskToStorage, addtolocalstorage, gettaskfromlocalstorage } from "./storage.js";
 export const tasksheading = ()=>{
     const taskshead = document.getElementById("tasksheading");
@@ -62,8 +62,13 @@ export const savebuttonlistener = (task,priorityvalue)=>{
 
     // console.log(task.savebutton);
     task.savebutton.addEventListener("click",()=>{
+        finalizeTaskSave(task,priorityvalue);
+    })
 
-        task.taskcontainer.textContent = "";
+}
+
+export const finalizeTaskSave = (task,priorityvalue)=>{
+    task.taskcontainer.textContent = "";
         task.taskcontainer.classList.remove("taskcontainer-style");
         task.taskcontainer.classList.add("savedtask");
 
@@ -118,12 +123,13 @@ export const savebuttonlistener = (task,priorityvalue)=>{
                 task.taskcontainer.classList.add("highprior");
             }   
         }
-
-
-        addTaskToStorage(task);
-    })
-
+        if(!priorityvalue){
+            addTaskToStorage(task);
+        }
 }
+
+
+
 
 export const deletebuttonlistener = (task)=>{
     task.deletebutton.addEventListener("click",()=>{
@@ -137,6 +143,22 @@ export const deletebuttonlistener = (task)=>{
                 }
             }
         });
+
+        console.log(task.id);
+        //lisobj deletion: 
+        Object.entries(listobj).forEach(([key,values])=>{
+            console.log("polka man")
+            console.log("VALUES IS : ",values);
+            for ( let i = 1 ; i < values.length ; i++){
+                if(values[i][0] === task.id){
+                    console.log("Checking", values[i][0], "vs", task.id);
+                    values.splice(i,1);
+                    break;
+                }
+            }
+        });
+        localStorage.setItem("localstore",JSON.stringify(listobj));
+
     })
 }
 
