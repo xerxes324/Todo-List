@@ -1,8 +1,8 @@
 import { listarray, listobj, listtaskmap,storagearray } from ".";
 import { initializelist } from "./lists";
 import {todo} from "./createtodo";
-import { savebuttonlistener } from "./maincolumn";
-import {savelistbuttonlistener} from "./sidebar"
+import { tasklisteners, finalizeTaskSave , deletebuttonlistener} from "./maincolumn";
+import {setuplisthandler,finalizeListSave, deletelistbuttonlistener} from "./sidebar"
 
 
 export const restoreObject = (olddata)=>{
@@ -50,30 +50,34 @@ export const addTaskToStorage = (task)=>{
 
 export const getDataFromLocalStorage = ()=>{
     const getdata = JSON.parse(localStorage.getItem("localstore"));
-    console.log("get data is : ",getdata);
+    // console.log("get data is : ",getdata);
     return getdata;
 }
 
 
-
-export const renderDOM = ()=>{
+export const restoreAppState = ()=>{
     console.log("rendering in 5,4,..0");
 
     Object.entries(listobj).forEach(([key,values])=>{
 
-        const renderList = new initializelist(values[0]);
-        savelistbuttonlistener(renderList);
-        renderList.savelistbtn.click();
+        const renderList = new initializelist(values[0],key);
+        console.log(listtaskmap,"is the map right now.")
+        setuplisthandler(renderList);
+        deletelistbuttonlistener(renderList);
+        finalizeListSave(renderList,1);
         
         for ( let i = 1 ; i < values.length ; i++){
 
-            console.log(values);
-            const renderTask = new todo(values[i][1],values[i][2],values[i][3]);
-            console.log(listtaskmap);
-            savebuttonlistener(renderTask,values[i][4]);
-            renderTask.savebutton.click();
+            const renderTask = new todo(values[i][1],values[i][2],values[i][3],values[i][0]);
+            if ( !listtaskmap.get(key)){
+                listtaskmap.set(key,[])
+            }
+            listtaskmap.get(key).push(renderTask);
+
+            tasklisteners(renderTask);
+            finalizeTaskSave(renderTask, values[i][4]);
+            deletebuttonlistener(renderTask);
+            
         }
     })
-
-
 }
