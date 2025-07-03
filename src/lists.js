@@ -1,10 +1,14 @@
 import { listtaskmap, active } from ".";
 export class initializelist {
 
-    constructor(listname){
+    constructor(listname,listid){
         this.createlist(listname);
-        this.id = crypto.randomUUID();
-        
+        if(listid){
+            this.id = listid;
+        }
+        else{
+            this.id = crypto.randomUUID();
+        }
         listtaskmap.set(this.id,[]);
     }
 
