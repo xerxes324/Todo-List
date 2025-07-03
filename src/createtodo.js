@@ -1,7 +1,13 @@
 export class todo {
-    constructor(title,date,desc,priorityvalue){
-        this.createform(title,date,desc,priorityvalue   );
-        this.id = crypto.randomUUID();
+    constructor(title,date,desc,taskid){
+        this.createform(title,date,desc);
+
+        if ( taskid ){
+            this.id = taskid;
+        }
+        else{
+            this.id = crypto.randomUUID();
+        }
     }
 
     createform(title,date,desc,priorityvalue){
