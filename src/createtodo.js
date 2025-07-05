@@ -87,20 +87,20 @@ export class todo {
         this.prioritydropdown = document.createElement("select");
         this.prioritydropdown.id = "dropdown";
         this.prioritydropdown.classList.add("prioritydropdown-style");
+
+
+        ["High","Medium","Low"].forEach(e => {
+            const prioritylevel = document.createElement("option");
+            prioritylevel.textContent = e;
+            this.prioritydropdown.append(prioritylevel);
+        });
         if ( priorityvalue){
             this.prioritydropdown.value = priorityvalue;
         }
-        else{
 
-            ["High","Medium","Low"].forEach(e => {
-                const prioritylevel = document.createElement("option");
-                prioritylevel.textContent = e;
-                this.prioritydropdown.append(prioritylevel);
-            });
-    
-            this.prioritysection.append(this.prioritylabel,this.prioritydropdown);
-            this.taskcontainer.append(this.prioritysection);
-        }
+        this.prioritysection.append(this.prioritylabel,this.prioritydropdown);
+        this.taskcontainer.append(this.prioritysection);
+        
 
 
         //control section:
