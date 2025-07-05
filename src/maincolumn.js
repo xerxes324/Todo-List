@@ -108,7 +108,8 @@ export const finalizeTaskSave = (task,priorityvalue)=>{
             }
             else{
                 task.taskcontainer.classList.add("highprior");
-            }   
+            }
+            task.prioritydropdown.value = priorityvalue;   
         }
         
         else{
@@ -123,6 +124,7 @@ export const finalizeTaskSave = (task,priorityvalue)=>{
                 task.taskcontainer.classList.add("highprior");
             }   
         }
+
         if(!priorityvalue){
             addTaskToStorage(task);
         }
@@ -171,7 +173,7 @@ export const editbuttonlistener = (editbutton,task)=>{
 const edittask = (task)=>{
     const maindiv = document.getElementById("tasks");
     const oldtask  = task.taskcontainer; 
-    const newtask = task.createform(task.titlefield.value,task.datefield.value,task.descriptionbox.value);
+    const newtask = task.createform(task.titlefield.value,task.datefield.value,task.descriptionbox.value,task.prioritydropdown.value);
 
     tasklisteners(task);
     savebuttonlistener(task);

@@ -144,7 +144,7 @@ export const finalizeListSave = (sidebarlist,temp)=>{
     savedlistbox.classList.remove("newlist-style");
     savedlistbox.classList.add("savedlistbox-style");
     savedlistbox.textContent = "";
-
+    console.log(sidebarlist.id,"IS GONDOR'S ID")
     const listnameh1 = document.createElement("h1");
     listnameh1.textContent = sidebarlist.listinput.value;
     const listeditbtn = document.createElement("button");
@@ -152,9 +152,18 @@ export const finalizeListSave = (sidebarlist,temp)=>{
     listeditbtn.classList.add("listeditbutton-style")
     savedlistbox.append(listnameh1,listeditbtn);
     editlist(sidebarlist,listeditbtn);
+    
     if ( !temp ){
         addListToStorage(sidebarlist);
     }
+
+    Object.entries(listobj).forEach(([key,values]) =>{
+        if ( key === sidebarlist.id ){
+            console.log(values[0], "is values[0]")
+            values[0] = listnameh1.textContent;
+        }
+    })
+    localStorage.setItem("localstore",JSON.stringify(listobj));
 }
 
 
@@ -170,6 +179,38 @@ const editlist = (sidebarlist,listeditbtn) =>{
         savelistbuttonlistener(sidebarlist);
         deletelistbuttonlistener(sidebarlist);
         oldlist.remove();
+        // if ( temp ){
+        // console.log("heloeloelo")
+        // Object.entries(listobj).forEach(([key,values]) =>{
+        //     if ( key === newlist.id ){
+        //         console.log("chittychat")
+        //         values[0] = newlist.listinput.value;
+                
+        // }});
+        //     finalizeListSave(sidebarlist,1);
+        // }
+        // else{
+            
+        //     savelistbuttonlistener(sidebarlist);
+        // }
+        
+
+        // deletelistbuttonlistener(sidebarlist);
+        // oldlist.remove();
+
+
+        // let tempstore = "";
+        // Object.entries(listobj).forEach(([key,values]) =>{
+        //     if ( key === sidebarlist.id ){
+        //         tempstore = values;
+        //         delete listobj[key];
+        //     }
+        // });
+
+        // const newlistID = newlist.id;
+        // listobj[newlistID] = [tempstore];
+        // console.log(listobj, "THE ROCK IS COOKING");
+
     })
 
 }
